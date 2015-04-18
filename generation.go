@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-const height = 80
+const height = 40
 const width = 80
 const alive = "o"
 const dead = " "
@@ -15,14 +15,12 @@ type Generation struct {
 }
 
 func (g *Generation) Awaken() {
-	cellTypes := make([]string, 2)
-	cellTypes[0] = dead
-	cellTypes[1] = alive
+	cellTypes := []string{dead, alive}
 
 	g.cells = make([][]string, height)
 
 	for row := 0; row < height; row++ {
-		cols := make([]string, height)
+		cols := make([]string, width)
 
 		for col := 0; col < width; col++ {
 			cols[col] = cellTypes[random(0, 2)]

@@ -12,6 +12,7 @@ func clearScreen() {
 }
 
 func main() {
+	clearScreen()
 
 	generation := &Generation{}
 	generation.Awaken()
@@ -26,7 +27,7 @@ func main() {
 	for i := 0; true; i++ {
 		fmt.Println("Generation", i)
 		fmt.Println(generation.ToString())
-		time.Sleep(1 * time.Second)
+		time.Sleep(500 * time.Millisecond)
 		clearScreen()
 		generation.Reproduce()
 	}
