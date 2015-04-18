@@ -5,24 +5,24 @@ import (
 	"strings"
 )
 
-const height = 40
-const width = 80
 const alive = "o"
 const dead = " "
 
 type Generation struct {
-	cells [][]string
+	cells  [][]string
+	height int
+	width  int
 }
 
 func (g *Generation) Awaken() {
 	cellTypes := []string{dead, alive}
 
-	g.cells = make([][]string, height)
+	g.cells = make([][]string, g.height)
 
-	for row := 0; row < height; row++ {
-		cols := make([]string, width)
+	for row := 0; row < g.height; row++ {
+		cols := make([]string, g.width)
 
-		for col := 0; col < width; col++ {
+		for col := 0; col < g.width; col++ {
 			cols[col] = cellTypes[random(0, 2)]
 		}
 		g.cells[row] = cols
@@ -30,13 +30,13 @@ func (g *Generation) Awaken() {
 }
 
 func (g *Generation) Reproduce() {
-	nextGeneration := make([][]string, height)
+	nextGeneration := make([][]string, g.height)
 
 	for rIndex, row := range g.cells {
-		nextGeneration[rIndex] = make([]string, width)
+		nextGeneration[rIndex] = make([]string, g.width)
 
 		for cIndex, cell := range row {
-			neighbors := findNeighbors(rIndex, cIndex, g.cells)
+			neighbors := g.findNeighbors(rIndex, cIndex, g.cells)
 
 			if willSurvive(cell, neighbors) {
 				nextGeneration[rIndex][cIndex] = alive
@@ -50,7 +50,7 @@ func (g *Generation) Reproduce() {
 	g.cells = nextGeneration
 }
 
-func findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
+func (g *Generation) findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
 	var neighbors []string
 
 	// add top
@@ -61,7 +61,7 @@ func findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
 	}
 
 	// add bottom
-	if rowIndex != height-1 {
+	if rowIndex != g.height-1 {
 		if cells[rowIndex+1][colIndex] == alive {
 			neighbors = append(neighbors, cells[rowIndex+1][colIndex])
 		}
@@ -75,7 +75,7 @@ func findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
 	}
 
 	// add right
-	if colIndex != width-1 {
+	if colIndex != g.width-1 {
 		if cells[rowIndex][colIndex+1] == alive {
 			neighbors = append(neighbors, cells[rowIndex][colIndex+1])
 		}
@@ -92,7 +92,7 @@ func findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
 
 	// add upper-right-diagonal
 	if rowIndex != 0 {
-		if colIndex != width-1 {
+		if colIndex != g.width-1 {
 			if cells[rowIndex-1][colIndex+1] == alive {
 				neighbors = append(neighbors, cells[rowIndex-1][colIndex+1])
 			}
@@ -100,7 +100,7 @@ func findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
 	}
 
 	// add lower-left-diagonal
-	if rowIndex != height-1 {
+	if rowIndex != g.height-1 {
 		if colIndex != 0 {
 			if cells[rowIndex+1][colIndex-1] == alive {
 				neighbors = append(neighbors, cells[rowIndex+1][colIndex-1])
@@ -109,8 +109,8 @@ func findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
 	}
 
 	// add lower-right-diagonal
-	if rowIndex != height-1 {
-		if colIndex != width-1 {
+	if rowIndex != g.height-1 {
+		if colIndex != g.width-1 {
 			if cells[rowIndex+1][colIndex+1] == alive {
 				neighbors = append(neighbors, cells[rowIndex+1][colIndex+1])
 			}
@@ -147,7 +147,7 @@ func willSurvive(cell string, neighbors []string) bool {
 }
 
 func (g *Generation) ToString() string {
-	rowStrings := make([]string, height)
+	rowStrings := make([]string, g.height)
 
 	for index, row := range g.cells {
 		rowStrings[index] = strings.Join(row, " ")

@@ -14,11 +14,13 @@ func clearScreen() {
 
 func main() {
 	var generationTime *int = flag.Int("gtime", 1000, "time in milliseconds between generations")
+	var generationHeight *int = flag.Int("height", 20, "height of the generation")
+	var generationWidth *int = flag.Int("width", 20, "height of the generation")
 	flag.Parse()
 
 	clearScreen()
 
-	generation := &Generation{}
+	generation := &Generation{height: *generationHeight, width: *generationWidth}
 	generation.Awaken()
 
 	c := make(chan os.Signal, 1)
