@@ -27,7 +27,7 @@ func main() {
 	for i := 0; true; i++ {
 		fmt.Println("Generation", i)
 		fmt.Println(generation.ToString())
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(1000 * time.Millisecond)
 		clearScreen()
 		generation.Reproduce()
 	}
