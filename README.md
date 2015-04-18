@@ -2,7 +2,7 @@
 
 Here's a basic implementation of Conway's Game of Life written in Go.
 
-To run, simple type:
+To run, simply type:
 
 ```
 life
