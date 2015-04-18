@@ -33,8 +33,9 @@ func TestWillSurvive(t *testing.T) {
 		{" ", []string{"o", "o", "o", "o", "o", "o", "o", "o"}, false}, // Rule 4
 	}
 
+	generation := Generation{}
 	for _, test := range cases {
-		ok := willSurvive(test.cell, test.neighbors)
+		ok := generation.willSurvive(test.cell, test.neighbors)
 
 		if ok != test.want {
 			t.Errorf("willSurvive(%q, %q) = %v want %v", test.cell, test.neighbors, ok, test.want)

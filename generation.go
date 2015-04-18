@@ -38,7 +38,7 @@ func (g *Generation) Reproduce() {
 		for cIndex, cell := range row {
 			neighbors := g.findNeighbors(rIndex, cIndex, g.cells)
 
-			if willSurvive(cell, neighbors) {
+			if g.willSurvive(cell, neighbors) {
 				nextGeneration[rIndex][cIndex] = alive
 			} else {
 				nextGeneration[rIndex][cIndex] = dead
@@ -120,7 +120,7 @@ func (g *Generation) findNeighbors(rowIndex int, colIndex int, cells [][]string)
 	return neighbors
 }
 
-func willSurvive(cell string, neighbors []string) bool {
+func (g *Generation) willSurvive(cell string, neighbors []string) bool {
 	livingNeighbors := len(neighbors)
 
 	if cell == alive {
