@@ -30,18 +30,24 @@ func (g *Generation) Awaken() {
 }
 
 func (g *Generation) Reproduce() {
+	nextGeneration := make([][]string, height)
+
 	for rIndex, row := range g.cells {
-		for cIndex, col := range row {
+		nextGeneration[rIndex] = make([]string, width)
+
+		for cIndex, cell := range row {
 			neighbors := findNeighbors(rIndex, cIndex, g.cells)
 
-			if willSurvive(col, neighbors) {
-				g.cells[rIndex][cIndex] = alive
+			if willSurvive(cell, neighbors) {
+				nextGeneration[rIndex][cIndex] = alive
 			} else {
-				g.cells[rIndex][cIndex] = dead
+				nextGeneration[rIndex][cIndex] = dead
 			}
 
 		}
 	}
+
+	g.cells = nextGeneration
 }
 
 func findNeighbors(rowIndex int, colIndex int, cells [][]string) []string {
