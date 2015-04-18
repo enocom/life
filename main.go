@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
@@ -12,6 +13,9 @@ func clearScreen() {
 }
 
 func main() {
+	var generationTime *int = flag.Int("gtime", 1000, "time in milliseconds between generations")
+	flag.Parse()
+
 	clearScreen()
 
 	generation := &Generation{}
@@ -27,7 +31,7 @@ func main() {
 	for i := 0; true; i++ {
 		fmt.Println("Generation", i)
 		fmt.Println(generation.ToString())
-		time.Sleep(1000 * time.Millisecond)
+		time.Sleep(time.Duration(*generationTime) * time.Millisecond)
 		clearScreen()
 		generation.Reproduce()
 	}
