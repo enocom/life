@@ -146,7 +146,7 @@ func (g *Generation) willSurvive(cell string, neighbors []string) bool {
 	return false
 }
 
-func (g *Generation) ToString() string {
+func (g *Generation) String() string {
 	rowStrings := make([]string, g.height)
 
 	for index, row := range g.cells {
