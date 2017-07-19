@@ -9,7 +9,7 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/enocom/life/pkg/life"
+	"github.com/enocom/life"
 )
 
 func main() {

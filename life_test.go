@@ -3,7 +3,7 @@ package life_test
 import (
 	"testing"
 
-	"github.com/enocom/life/pkg/life"
+	"github.com/enocom/life"
 )
 
 type test struct {
