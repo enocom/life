@@ -1,4 +1,4 @@
-// Package life implents Conway's Game of Life with a CLI interface.
+// Package life implements Conway's Game of Life with a CLI interface.
 //
 // The rules of the game are as follows:
 //
